@@ -1,0 +1,17 @@
+Removal of dedication causes chapter numbers to be incorrect
+    Moved \setcounter to \setupThesisStyle
+
+Removing unnecessary packages:
+    babel
+    csquotes
+    subfig => subcaption
+
+
+Appendix figure labels formatted with a 0 section
+    Added lines in "main_thesis.tex" which change the appendix
+    figure labels. The counter must be reset to zero before each
+    additional appendix.
+
+Line break in 'title' definition won't compile
+    Change linebreak command to \protect\\
+    Note added in template to indicate this fix
