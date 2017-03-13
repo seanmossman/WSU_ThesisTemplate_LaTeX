@@ -92,7 +92,8 @@
 
 
 %********************* Page Setup ********************************************
-
+\usepackage{vmargin}
+\usepackage[normalem]{ulem}
 \newcommand{\setUpThesisPages}{
  % Page setup: In most cases you won't need to change this.
 \setpapersize{USletter}
@@ -252,8 +253,8 @@
    \def\toclevel@section{0}
    \phantomsection
    \addcontentsline{toc}{chapter}{ACKNOWLEDGMENTS}
-   \def\toclevel@section{1}
-   \vspace*{2.0 \baselineskip}
+   %\def\toclevel@section{1}
+   %\vspace*{2.0 \baselineskip}
    \begin{center}\textbf{ACKNOWLEDGMENTS}\end{center}
 }{\newpage}
 
@@ -280,8 +281,8 @@
    \cleardoublepage
    \phantomsection
    \addcontentsline{toc}{chapter}{ABSTRACT}
-   \def\toclevel@section{1}
-   \vspace*{2.0 \baselineskip}
+   %\def\toclevel@section{1}
+   %\vspace*{2.0 \baselineskip}
    \begin{center}
       \MakeUppercase{\mytitle} \\
       Abstract \\

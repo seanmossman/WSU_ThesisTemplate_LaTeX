@@ -208,13 +208,12 @@
 %%% Parisa changed. \phantomsection required for the hyperref package to
 %% work correctly. Also replace part by section to add to toc.
 \def\@chapter[#1]#2{%
-
       \refstepcounter{chapter}%
       %\def\toclevel@section{0}
       \cleardoublepage
       \phantomsection
       \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}#1}
-      \addtocontents{toc}{\vspace{ 9.5pt}}
+      %\addtocontents{toc}{\vspace{9.5pt}}
       \def\toclevel@chapter{0}
     \markboth{}{}%
     {\ifnum \c@secnumdepth >-2\relax
@@ -320,22 +319,42 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Appendix settings
-%%  Compromises regarding appendix section headers made due to
-%%  spacing conflicts with the TOC
+%%  Version: Chapter headings as new appendices with blank APPENDIX title page
 
-\newcommand\appendix{\par
+\newcommand\appendix{\newpage
     \phantomsection
-    \chapter*{\large{\MakeUppercase{Appendix}}}
-    \addcontentsline{toc}{chapter}{\appendixname}
-    \addtocontents{toc}{\vskip 9.5pt}
+    \chapter*{\large{\MakeUppercase{Appendices}}}
+    \addcontentsline{toc}{chapter}{\appendicesname}
+    %\addtocontents{toc}{\vskip 9.5pt}
+    \thispagestyle{empty}
+    \cleardoublepage
     \def\toclevel@chapter{0}
     \setcounter{chapter}{0}%
     \setcounter{section}{0}%
     \setcounter{subsection}{0}%
-    \renewcommand\thesection{\@Alph\c@section.}
+    \renewcommand\thechapter{\@Alph\c@chapter}
+    \renewcommand\thefigure{\thechapter.\arabic{figure}}
+    \renewcommand\theequation{\thechapter.\arabic{equation}}
+    %\renewcommand\thesection{\@Alph\c@chapter.\@arabic\c@section}
+    \def\@chapter[##1]##2{%
+
+          \refstepcounter{chapter}%
+          %\def\toclevel@section{0}
+          \phantomsection
+          \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}##1}
+          %\addtocontents{toc}{\vspace{ 9.5pt}}
+          \def\toclevel@chapter{0}
+        \markboth{}{}%
+        {\ifnum \c@secnumdepth >-2\relax
+           \flushleft\large\bfseries{APPENDIX~\thechapter.} % font size 14
+         \fi
+         \centering\large\bfseries\MakeUppercase{##2}\par}% font size 14
+         %\vspace{2ex}{\hrule height 2pt}\vspace{7ex}
+         \vspace{4.5ex}
+    }
 }
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength\arraycolsep{5\p@}
 \setlength\tabcolsep{6\p@}
 \setlength\arrayrulewidth{.4\p@}
@@ -433,7 +452,7 @@
 %% AOC trying to fix the spacing - all previous settings are overwritten
 
 \newcommand*\l@chapter{\@dottedtocline{0}{0em}{2.8em}}
-\newcommand*\l@section{\vskip -9.5pt \@dottedtocline{1}{1.7em}{2.0em}}
+\newcommand*\l@section{ \@dottedtocline{1}{1.7em}{2.0em}}
 \newcommand*\l@subsection{\@dottedtocline{2}{7em}{2.9em}}
 \newcommand*\l@subsubsection{\@dottedtocline{3}{7em}{3.8em}}
 \newcommand*\l@paragraph{\@dottedtocline{4}{11.1em}{4.7em}}

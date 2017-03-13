@@ -8,20 +8,14 @@
 % Set the default graphics format used and add any folders
 % specifically holding graphics.
 \usepackage{graphicx}
-   \graphicspath{{./../Figures/}}
+   \graphicspath{{./../Figures/}} 
 \usepackage{float}
 \usepackage[hang,small,bf]{caption}
-\usepackage[caption=false,font=footnotesize]{subcaption}
-\usepackage[normalem]{ulem}
-\usepackage{vmargin}
-\usepackage{multirow}
-\usepackage{makeidx}
 \usepackage[numbers]{natbib}
-\usepackage[toc,page]{appendix}
 
 %*************** Add additional packages here! *******************%
 \usepackage{verbatim}
-
+\usepackage[caption=false,font=footnotesize]{subcaption}
 
 %******PDF production specific info and hyperref package**********%
 % The hyperref package allows all internal references to act like hyperlinks
@@ -44,7 +38,7 @@
 \usepackage{bookmark}
 %*************** Page Setup *************************************
 
-\setUpThesisPages
+\setUpThesisPages  %Uses vmargin and ulem packages
 
 %*************** Information *************************************
 
@@ -93,11 +87,8 @@
 %\input{./../Chapter5/Chapter5}
 %\input{./../Chapter6/Chapter6}
 %\input{./../Conclusion/Conclusion}
-\newpage
 \appendix
-\renewcommand\thefigure{\thesection\arabic{figure}}
 \input{./../Appendices/AppendixA}
-\setcounter{figure}{0}
 \input{./../Appendices/AppendixB}
 
 %*************** Epilogue *************************************
