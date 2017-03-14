@@ -359,9 +359,8 @@
     \renewcommand\thechapter{\@Alph\c@chapter}
     \renewcommand\thefigure{\thechapter.\arabic{figure}}
     \renewcommand\theequation{\thechapter.\arabic{equation}}
-    \renewcommand\theequation{\thechapter.\arabic{table}}
+    \renewcommand\thetable{\thechapter.\arabic{table}}
     \def\@chapter[##1]##2{%
-
           \refstepcounter{chapter}%
           %\def\toclevel@section{0}
           \phantomsection
