@@ -4,14 +4,16 @@ Removal of dedication causes chapter numbers to be incorrect
 Removing unnecessary packages:
     babel
     csquotes
-    subfig => subcaption
+    subfig => subcaption and moved to user packages as unnecessary to run template
+    ulem and vmargin moved to WSUThesis.sty
 
 
-Appendix figure labels formatted with a 0 section
-    Added lines in "main_thesis.tex" which change the appendix
-    figure labels. The counter must be reset to zero before each
-    additional appendix.
+Appendix issues
+    There were a variety of problems with the appendices as originally published. The system is modified to allow for section based or chapter based appendices and will format all necessary parts when called as described in main_thesis.tex
 
 Line break in 'title' definition won't compile
     Change linebreak command to \protect\\
     Note added in template to indicate this fix
+
+Table of contents spacing
+    The graduate school has requested that we adjust the TOC spacing to be completely uniform.
