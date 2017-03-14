@@ -323,6 +323,30 @@
 
 \newcommand\appendix{\newpage
     \phantomsection
+    \chapter*{\large{\MakeUppercase{Appendix}}}
+    \addcontentsline{toc}{chapter}{\appendixname}
+    \def\toclevel@chapter{0}
+    \setcounter{chapter}{0}%
+    \setcounter{section}{0}%
+    \setcounter{subsection}{0}%
+    \renewcommand\thesection{\@Alph\c@section.}
+    \renewcommand\theequation{\thesection\arabic{equation}}
+    \renewcommand\thefigure{\thesection\arabic{figure}}
+    \renewcommand\thetable{\thesection\arabic{table}}
+    \renewcommand\section{
+                   \setcounter{figure}{0}
+                   \setcounter{table}{0}
+                   \setcounter{equation}{0}
+                   \@startsection {section}{2}{\z@}%
+                   {3em}
+                   {2em}
+                   {\resetbaselineskip\normalfont\large\bfseries}
+                   }
+    \renewcommand\thesubsection{\thesection\@arabic\c@subsection}
+}
+
+\newcommand\appendices{\newpage
+    \phantomsection
     \chapter*{\large{\MakeUppercase{Appendices}}}
     \addcontentsline{toc}{chapter}{\appendicesname}
     %\addtocontents{toc}{\vskip 9.5pt}
@@ -335,7 +359,7 @@
     \renewcommand\thechapter{\@Alph\c@chapter}
     \renewcommand\thefigure{\thechapter.\arabic{figure}}
     \renewcommand\theequation{\thechapter.\arabic{equation}}
-    %\renewcommand\thesection{\@Alph\c@chapter.\@arabic\c@section}
+    \renewcommand\theequation{\thechapter.\arabic{table}}
     \def\@chapter[##1]##2{%
 
           \refstepcounter{chapter}%

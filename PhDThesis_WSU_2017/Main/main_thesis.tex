@@ -8,7 +8,7 @@
 % Set the default graphics format used and add any folders
 % specifically holding graphics.
 \usepackage{graphicx}
-   \graphicspath{{./../Figures/}} 
+   \graphicspath{{./../Figures/}}
 \usepackage{float}
 \usepackage[hang,small,bf]{caption}
 \usepackage[numbers]{natbib}
@@ -87,7 +87,10 @@
 %\input{./../Chapter5/Chapter5}
 %\input{./../Chapter6/Chapter6}
 %\input{./../Conclusion/Conclusion}
-\appendix
+%\appendices        % Call this with appendices included as chapters. 
+            % OR                  
+\appendix           % Call this with individual appendices called as sections
+                          %The text of AppendixA.tex, etc must reflect this choice%
 \input{./../Appendices/AppendixA}
 \input{./../Appendices/AppendixB}
 
