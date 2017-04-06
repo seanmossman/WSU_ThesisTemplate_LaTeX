@@ -329,36 +329,20 @@
     \setcounter{chapter}{0}%
     \setcounter{section}{0}%
     \setcounter{subsection}{0}%
-    \renewcommand\thesection{\@Alph\c@section}
-    \renewcommand\theequation{\thesection.\arabic{equation}}
-    \renewcommand\thefigure{\thesection.\arabic{figure}}
-    \renewcommand\thetable{\thesection.\arabic{table}}
-    \renewcommand\section{%
-        \secdef\@section\@ssection}
-        \def\@section[##1]##2{%
-          \refstepcounter{section}%
-          \phantomsection
-          \addcontentsline{toc}{section}{\thesection.\hspace{1em}##1}
-          \def\toclevel@section{1}
-        \markboth{}{}%
-        {\ifnum \c@secnumdepth >-2\relax
-           \flushleft\large\bfseries{Appendix~\thesection.\hspace{0.5em}} % font size 14
-         \fi
-         \large\bfseries{##2}\par}
-         \vspace{4.5ex}
-         \setcounter{equation}{0}
-         \setcounter{figure}{0}
-         \setcounter{table}{0}
-       }
-    \def\@ssection##1{%
-        {
-         \refstepcounter{section}%
-         \flushleft
-         \interlinepenalty \@M
-         \normalfont
-         \large \bfseries ##1\par}%
-    }
-    \renewcommand\thesubsection{\thesection.\@arabic\c@subsection}
+    \renewcommand\thesection{\@Alph\c@section.}
+    \renewcommand\theequation{\thesection\arabic{equation}}
+    \renewcommand\thefigure{\thesection\arabic{figure}}
+    \renewcommand\thetable{\thesection\arabic{table}}
+    \renewcommand\section{
+                   \setcounter{figure}{0}
+                   \setcounter{table}{0}
+                   \setcounter{equation}{0}
+                   \@startsection {section}{2}{\z@}%
+                   {3em}
+                   {2em}
+                   {\resetbaselineskip\normalfont\large\bfseries}
+                   }
+    \renewcommand\thesubsection{\thesection\@arabic\c@subsection}
 }
 
 \newcommand\appendices{\newpage
@@ -377,7 +361,6 @@
     \renewcommand\theequation{\thechapter.\arabic{equation}}
     \renewcommand\thetable{\thechapter.\arabic{table}}
     \def\@chapter[##1]##2{%
-          \cleardoublepage
           \refstepcounter{chapter}%
           %\def\toclevel@section{0}
           \phantomsection
