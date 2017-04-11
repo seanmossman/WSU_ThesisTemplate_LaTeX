@@ -9,6 +9,7 @@
 %%  Edits by:
 %%      Peter Kurahashi, 2009
 %%      Parisa Rashidi, 2010
+%%      Tyler Biggs, 2017
 %%
 %% This file is distributed in the hope that it will be useful,
 %% but without ANY WARRANTY; without even the implied warranty of
@@ -204,25 +205,19 @@
 
 \newcommand\chapter{%
   \secdef\@chapter\@schapter}
-
-%%% Parisa changed. \phantomsection required for the hyperref package to
-%% work correctly. Also replace part by section to add to toc.
+    % Removed the check for negative section numbers. Not clear to me
+    % Why the template would need this. May have to re-implement if it breaks something.
+    % -Tyler
 \def\@chapter[#1]#2{%
-      \refstepcounter{chapter}%
-      %\def\toclevel@section{0}
-      \cleardoublepage
-      \phantomsection
-      \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}#1}
-      %\addtocontents{toc}{\vspace{9.5pt}}
-      \def\toclevel@chapter{0}
-    \markboth{}{}%
-    {\ifnum \c@secnumdepth >-2\relax
-       \flushleft\large\bfseries{CHAPTER~\thechapter.} % font size 14
-     \fi
-     \centering\large\bfseries\MakeUppercase{#2}\par}% font size 14
-     %\vspace{2ex}{\hrule height 2pt}\vspace{7ex}
-     \vspace{4.5ex}
+    \refstepcounter{chapter}%
+    \cleardoublepage
+    \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}#1}%
+    \def\toclevel@chapter{0}%
+    \centeredHeadingPar{\large\bfseries{CHAPTER~\thechapter.~}%
+    \large\MakeUppercase{#2}}\par%
+    \vspace{4.5ex}
 }
+
 \def\@schapter#1{%
     {
      \refstepcounter{chapter}%
@@ -231,6 +226,50 @@
      \normalfont
      \Huge \bfseries #1\par}%
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PYRAMID TITLE LAYOUT
+%
+
+\newlength{\@headingTextWidth}
+\newcommand{\centeredHeadingPar}[1]%
+{%
+    \leavevmode\vbox{%
+        \hsize=\textwidth
+        \parindent=0pt
+        \parfillskip=0pt
+        \emergencystretch=1.5em
+        %
+        \pretolerance=500
+        \tolerance=1000
+        \hyphenpenalty=10000
+        \linepenalty=0
+        %
+        \settowidth{\@headingTextWidth}{#1}%
+        \ifdim\@headingTextWidth<5.0in%
+            % True case - the heading will be only one line.
+            % Add fils to the [left/right]skips to avoid distracting underful hbox complaints.
+            \leftskip=0pt plus 0.5fil
+            \rightskip=0pt plus 0.5fil
+        \else%
+            % False case - multiline heading.
+            % Match the rubber in the [left/right]skips to the pyramid steps to ensure that each
+            % successive line is shorter than the previous.
+            \leftskip=0pt plus 0.2in
+            \rightskip=0pt plus 0.2in
+        \fi%
+        %
+        #1%
+        %
+        \parshape=6 % account for a maximum of six lines - thereafter all will have the final width
+            0.00in 5.0in
+            0.25in 4.5in
+            0.50in 4.0in
+            0.75in 3.5in
+            1.00in 3.0in
+            1.25in 2.5in
+    }% \vbox
+}% \centeredHeadingPar
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
