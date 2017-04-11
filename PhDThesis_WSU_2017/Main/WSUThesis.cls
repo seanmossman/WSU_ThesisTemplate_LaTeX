@@ -25,6 +25,8 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{WSUThesis}
 
+
+
 \newcommand\@ptsize{}
 \newif\if@restonecol
 \newif\if@titlepage

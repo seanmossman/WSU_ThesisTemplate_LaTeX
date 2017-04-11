@@ -92,15 +92,20 @@
 
 
 %********************* Page Setup ********************************************
-\usepackage{vmargin}
-\usepackage[normalem]{ulem}
+%\usepackage{vmargin}
 \newcommand{\setUpThesisPages}{
+  \usepackage{geometry}
+  \newgeometry{showframe}
+  \newgeometry{paper=letterpaper}
+  \newgeometry{left=1.25in,top=1.25in,right=1.25in,bottom=1.25in}}
+%\usepackage[normalem]{ulem}
+%\newcommand{\setUpThesisPages}{
  % Page setup: In most cases you won't need to change this.
-\setpapersize{USletter}
-\setmarginsrb{1.25in}{1.25in}{1.25in}{1.25in}  % left, top, right, bottom
-             {0ex}{5ex}{0in}{0.15in} % headht, headsp, footht, footsp
-\setlength\ULdepth{0.9ex}
-}
+%\setpapersize{USletter}
+%\setmarginsrb{1.25in}{1.25in}{1.25in}{1.25in}  % left, top, right, bottom
+%             {0ex}{5ex}{0in}{0.15in} % headht, headsp, footht, footsp
+%\setlength\ULdepth{0.9ex}
+%}
 
 %********************* Page Style Setup ********************************************
 
@@ -110,7 +115,7 @@
  \setcounter{page}{1}
  \pagestyle{plain}
  \pagenumbering{arabic}
- \pagestyle{myheadings}
+ %\pagestyle{myheadings}
 }
 
 %********************* Tables Setup ********************************************
@@ -177,7 +182,7 @@
 \newcommand{\DisplaySignaturePage}{
 
     % The numbering style is roman for the first few pages
-    \pagestyle{myheadings}
+    %\pagestyle{myheadings}
     \doublespace
     \pagenumbering{roman}
     \setcounter{page}{2}
