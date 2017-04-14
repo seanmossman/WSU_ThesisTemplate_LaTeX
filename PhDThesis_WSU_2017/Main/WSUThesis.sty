@@ -92,14 +92,20 @@
 
 
 %********************* Page Setup ********************************************
-
+%\usepackage{vmargin}
 \newcommand{\setUpThesisPages}{
+  \usepackage{geometry}
+  \newgeometry{showframe}
+  \newgeometry{paper=letterpaper}
+  \newgeometry{left=1.25in,top=1.25in,right=1.25in,bottom=1.25in}}
+%\usepackage[normalem]{ulem}
+%\newcommand{\setUpThesisPages}{
  % Page setup: In most cases you won't need to change this.
-\setpapersize{USletter}
-\setmarginsrb{1.25in}{1.25in}{1.25in}{1.25in}  % left, top, right, bottom
-             {0ex}{5ex}{0in}{0.15in} % headht, headsp, footht, footsp
-\setlength\ULdepth{0.9ex}
-}
+%\setpapersize{USletter}
+%\setmarginsrb{1.25in}{1.25in}{1.25in}{1.25in}  % left, top, right, bottom
+%             {0ex}{5ex}{0in}{0.15in} % headht, headsp, footht, footsp
+%\setlength\ULdepth{0.9ex}
+%}
 
 %********************* Page Style Setup ********************************************
 
@@ -109,7 +115,7 @@
  \setcounter{page}{1}
  \pagestyle{plain}
  \pagenumbering{arabic}
- \pagestyle{myheadings}
+ %\pagestyle{myheadings}
 }
 
 %********************* Tables Setup ********************************************
@@ -125,13 +131,14 @@
 }
 
 %********************* Title Page ********************************************
+
 \newcommand{\DisplayTitlePage}{
   \thispagestyle{empty}
   \doublespace
   \begin{center}
 
     % display title
-    \MakeUppercase{\mytitle}
+    \centeredHeadingPar{\MakeUppercase{\mytitle}}
 
     % display candidate's name
     \vfill
@@ -175,16 +182,16 @@
 \newcommand{\DisplaySignaturePage}{
 
     % The numbering style is roman for the first few pages
-    \pagestyle{myheadings}
+    %\pagestyle{myheadings}
     \doublespace
     \pagenumbering{roman}
     \setcounter{page}{2}
     \vspace*{\fill}
 
     % Text
-    \begin{flushleft}To the Faculty of \myschool:\\ \end{flushleft}
-    \begin{flushleft}
-        \hspace{1cm} The members of the Committee appointed to examine the \MakeLowercase{\mythesis} of \MakeUppercase{\myname} find it satisfactory and recommend that it be accepted.
+    \begin{flushleft}To the Faculty of \myschool:
+
+    \hspace{1cm} The members of the Committee appointed to examine the \MakeLowercase{\mythesis} of \MakeUppercase{\myname} find it satisfactory and recommend that it be accepted.
     \end{flushleft}
 
     % Name of committee members and their signatures. Can be more than 3, 4, or 5 members.
@@ -252,8 +259,8 @@
    \def\toclevel@section{0}
    \phantomsection
    \addcontentsline{toc}{chapter}{ACKNOWLEDGMENTS}
-   \def\toclevel@section{1}
-   \vspace*{2.0 \baselineskip}
+   %\def\toclevel@section{1}
+   %\vspace*{2.0 \baselineskip}
    \begin{center}\textbf{ACKNOWLEDGMENTS}\end{center}
 }{\newpage}
 
@@ -280,10 +287,10 @@
    \cleardoublepage
    \phantomsection
    \addcontentsline{toc}{chapter}{ABSTRACT}
-   \def\toclevel@section{1}
-   \vspace*{2.0 \baselineskip}
+   %\def\toclevel@section{1}
+   %\vspace*{2.0 \baselineskip}
    \begin{center}
-      \MakeUppercase{\mytitle} \\
+      \centeredHeadingPar{\MakeUppercase{\mytitle}} \\
       Abstract \\
       \doublespace
       by \myname, Ph.D.\\

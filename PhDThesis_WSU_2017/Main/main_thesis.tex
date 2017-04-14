@@ -11,17 +11,13 @@
    \graphicspath{{./../Figures/}}
 \usepackage{float}
 \usepackage[hang,small,bf]{caption}
-\usepackage[caption=false,font=footnotesize]{subcaption}
-\usepackage[normalem]{ulem}
-\usepackage{vmargin}
-\usepackage{multirow}
-\usepackage{makeidx}
 \usepackage[numbers]{natbib}
-\usepackage[toc,page]{appendix}
-
+\usepackage{crimson}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
 %*************** Add additional packages here! *******************%
 \usepackage{verbatim}
-
+\usepackage[caption=false,font=footnotesize]{subcaption}
 
 %******PDF production specific info and hyperref package**********%
 % The hyperref package allows all internal references to act like hyperlinks
@@ -44,7 +40,7 @@
 \usepackage{bookmark}
 %*************** Page Setup *************************************
 
-\setUpThesisPages
+\setUpThesisPages  %Uses vmargin and ulem packages
 
 %*************** Information *************************************
 
@@ -58,7 +54,7 @@
 %\setmycommitteed{Fourth Committee Member}
 %\setmycommitteee{Fifth Committee Member}
 
-\setmytitle{The title of this dissertation}     %Title (line break requires \protect\\
+\setmytitle{The title of this dissertation The title of this dissertation}%: This is a very long title, to illustrate the automatic alignment of insane titles if I go on for too long, what happens? What type of person would even do this. What can we do against such reckless hate?}     %Title (line break requires \protect\\
 \setmydept{My Department}                       % DEPARTMENT
 \setmyschool{Washington State University}       % SCHOOL
 \setmydegree{Doctor of Philosophy}              % DEGREE TYPE
@@ -93,11 +89,11 @@
 %\input{./../Chapter5/Chapter5}
 %\input{./../Chapter6/Chapter6}
 %\input{./../Conclusion/Conclusion}
-\newpage
-\appendix
-\renewcommand\thefigure{\thesection\arabic{figure}}
+%\appendices        % Call this with appendices included as chapters. 
+            % OR                  
+\appendix           % Call this with individual appendices called as sections
+                          %The text of AppendixA.tex, etc must reflect this choice%
 \input{./../Appendices/AppendixA}
-\setcounter{figure}{0}
 \input{./../Appendices/AppendixB}
 
 %*************** Epilogue *************************************

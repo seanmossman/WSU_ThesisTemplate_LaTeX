@@ -9,6 +9,7 @@
 %%  Edits by:
 %%      Peter Kurahashi, 2009
 %%      Parisa Rashidi, 2010
+%%      Tyler Biggs, 2017
 %%
 %% This file is distributed in the hope that it will be useful,
 %% but without ANY WARRANTY; without even the implied warranty of
@@ -23,6 +24,8 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{WSUThesis}
+
+
 
 \newcommand\@ptsize{}
 \newif\if@restonecol
@@ -204,26 +207,20 @@
 
 \newcommand\chapter{%
   \secdef\@chapter\@schapter}
-
-%%% Parisa changed. \phantomsection required for the hyperref package to
-%% work correctly. Also replace part by section to add to toc.
+    % Removed the check for negative section numbers. Not clear to me
+    % Why the template would need this. May have to re-implement if it breaks something.
+    % -Tyler
 \def\@chapter[#1]#2{%
-
-      \refstepcounter{chapter}%
-      %\def\toclevel@section{0}
-      \cleardoublepage
-      \phantomsection
-      \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}#1}
-      \addtocontents{toc}{\vspace{ 9.5pt}}
-      \def\toclevel@chapter{0}
-    \markboth{}{}%
-    {\ifnum \c@secnumdepth >-2\relax
-       \flushleft\large\bfseries{CHAPTER~\thechapter.} % font size 14
-     \fi
-     \centering\large\bfseries\MakeUppercase{#2}\par}% font size 14
-     %\vspace{2ex}{\hrule height 2pt}\vspace{7ex}
-     \vspace{4.5ex}
+    \refstepcounter{chapter}%
+    \cleardoublepage
+    \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}#1}%
+    \def\toclevel@chapter{0}%
+    \vspace*{50pt}
+    {\flushleft\large\bfseries{CHAPTER~\thechapter.~}%
+    \large\MakeUppercase{#2}}\par%
+    \vspace{4.5ex}
 }
+
 \def\@schapter#1{%
     {
      \refstepcounter{chapter}%
@@ -232,6 +229,50 @@
      \normalfont
      \Huge \bfseries #1\par}%
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PYRAMID TITLE LAYOUT
+%
+
+\newlength{\@headingTextWidth}
+\newcommand{\centeredHeadingPar}[1]%
+{%
+    \leavevmode\vbox{%
+        \hsize=\textwidth
+        \parindent=0pt
+        \parfillskip=0pt
+        \emergencystretch=1.5em
+        %
+        \pretolerance=500
+        \tolerance=1000
+        \hyphenpenalty=10000
+        \linepenalty=0
+        %
+        \settowidth{\@headingTextWidth}{#1}%
+        \ifdim\@headingTextWidth<5.0in%
+            % True case - the heading will be only one line.
+            % Add fils to the [left/right]skips to avoid distracting underful hbox complaints.
+            \leftskip=0pt plus 0.5fil
+            \rightskip=0pt plus 0.5fil
+        \else%
+            % False case - multiline heading.
+            % Match the rubber in the [left/right]skips to the pyramid steps to ensure that each
+            % successive line is shorter than the previous.
+            \leftskip=0pt plus 0.2in
+            \rightskip=0pt plus 0.2in
+        \fi%
+        %
+        #1%
+        %
+        \parshape=6 % account for a maximum of six lines - thereafter all will have the final width
+            0.00in 5.0in
+            0.25in 4.5in
+            0.50in 4.0in
+            0.75in 3.5in
+            1.00in 3.0in
+            1.25in 2.5in
+    }% \vbox
+}% \centeredHeadingPar
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -320,22 +361,82 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Appendix settings
-%%  Compromises regarding appendix section headers made due to
-%%  spacing conflicts with the TOC
+%%  Version: Chapter headings as new appendices with blank APPENDIX title page
 
-\newcommand\appendix{\par
+\newcommand\appendix{\newpage
     \phantomsection
     \chapter*{\large{\MakeUppercase{Appendix}}}
     \addcontentsline{toc}{chapter}{\appendixname}
-    \addtocontents{toc}{\vskip 9.5pt}
     \def\toclevel@chapter{0}
     \setcounter{chapter}{0}%
     \setcounter{section}{0}%
     \setcounter{subsection}{0}%
-    \renewcommand\thesection{\@Alph\c@section.}
+    \renewcommand\thesection{\@Alph\c@section}
+    \renewcommand\theequation{\thesection.\arabic{equation}}
+    \renewcommand\thefigure{\thesection.\arabic{figure}}
+    \renewcommand\thetable{\thesection.\arabic{table}}
+    \renewcommand\section{%
+        \secdef\@section\@ssection}
+        \def\@section[##1]##2{%
+          \refstepcounter{section}%
+          \phantomsection
+          \addcontentsline{toc}{section}{\thesection.\hspace{1em}##1}
+          \def\toclevel@section{1}
+        \markboth{}{}%
+        {\ifnum \c@secnumdepth >-2\relax
+           \flushleft\large\bfseries{Appendix~\thesection.\hspace{0.5em}} % font size 14
+         \fi
+         \large\bfseries{##2}\par}
+         \vspace{4.5ex}
+         \setcounter{equation}{0}
+         \setcounter{figure}{0}
+         \setcounter{table}{0}
+       }
+    \def\@ssection##1{%
+        {
+         \refstepcounter{section}%
+         \flushleft
+         \interlinepenalty \@M
+         \normalfont
+         \large \bfseries ##1\par}%
+    }
+    \renewcommand\thesubsection{\thesection.\@arabic\c@subsection}
 }
 
+\newcommand\appendices{\newpage
+    \phantomsection
+    \chapter*{\large{\MakeUppercase{Appendices}}}
+    \addcontentsline{toc}{chapter}{\appendicesname}
+    %\addtocontents{toc}{\vskip 9.5pt}
+    \thispagestyle{empty}
+    \cleardoublepage
+    \def\toclevel@chapter{0}
+    \setcounter{chapter}{0}%
+    \setcounter{section}{0}%
+    \setcounter{subsection}{0}%
+    \renewcommand\thechapter{\@Alph\c@chapter}
+    \renewcommand\thefigure{\thechapter.\arabic{figure}}
+    \renewcommand\theequation{\thechapter.\arabic{equation}}
+    \renewcommand\thetable{\thechapter.\arabic{table}}
+    \def\@chapter[##1]##2{%
+          \cleardoublepage
+          \refstepcounter{chapter}%
+          %\def\toclevel@section{0}
+          \phantomsection
+          \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}##1}
+          %\addtocontents{toc}{\vspace{ 9.5pt}}
+          \def\toclevel@chapter{0}
+        \markboth{}{}%
+        {\ifnum \c@secnumdepth >-2\relax
+           \flushleft\large\bfseries{APPENDIX~\thechapter.} % font size 14
+         \fi
+         \centering\large\bfseries\MakeUppercase{##2}\par}% font size 14
+         %\vspace{2ex}{\hrule height 2pt}\vspace{7ex}
+         \vspace{4.5ex}
+    }
+}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength\arraycolsep{5\p@}
 \setlength\tabcolsep{6\p@}
 \setlength\arrayrulewidth{.4\p@}
@@ -433,7 +534,7 @@
 %% AOC trying to fix the spacing - all previous settings are overwritten
 
 \newcommand*\l@chapter{\@dottedtocline{0}{0em}{2.8em}}
-\newcommand*\l@section{\vskip -9.5pt \@dottedtocline{1}{1.7em}{2.0em}}
+\newcommand*\l@section{ \@dottedtocline{1}{1.7em}{2.0em}}
 \newcommand*\l@subsection{\@dottedtocline{2}{7em}{2.9em}}
 \newcommand*\l@subsubsection{\@dottedtocline{3}{7em}{3.8em}}
 \newcommand*\l@paragraph{\@dottedtocline{4}{11.1em}{4.7em}}
