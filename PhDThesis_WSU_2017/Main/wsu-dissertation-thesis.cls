@@ -29,14 +29,6 @@
 % Redefine the chapter command to be ALL CAPS
 \renewcommand\chapter{\clearpage\thispagestyle{plain}\secdef\@chapter\@schapter}
 
-% patch the list of command to make the spacing the same... Just removing some code.
-\patchcmd%
-	{\listof}%search
-	{\setlength{\parskip}{\z@}}%command
-	{\setlength\parskip{0\p@ \@plus \p@}}%replace
-	{}%success
-	{}%failure
-
 % Patch the l@chapter command to remove the bold font series.
 \patchcmd%
 	{\l@chapter}%search
