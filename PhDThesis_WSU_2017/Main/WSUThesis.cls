@@ -215,7 +215,8 @@
     \cleardoublepage
     \addcontentsline{toc}{chapter}{\thechapter.\hspace{1em}#1}%
     \def\toclevel@chapter{0}%
-    \centeredHeadingPar{\large\bfseries{CHAPTER~\thechapter.~}%
+    \vspace*{50pt}
+    {\flushleft\large\bfseries{CHAPTER~\thechapter.~}%
     \large\MakeUppercase{#2}}\par%
     \vspace{4.5ex}
 }
