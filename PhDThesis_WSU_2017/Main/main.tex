@@ -1,0 +1,174 @@
+\documentclass[
+DToption=dissertation,% or thesis
+]{wsu-dissertation-thesis}
+
+\usepackage{wsu-dissertation-thesis}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[numbers]{natbib}
+% Your information
+\title{My Dissertation Title}
+\author{Butch T. Coug}
+\date{May 2017}
+
+% Your School & Departments information
+\setDegree{Doctor of Philosophy}
+\setUniversity{Washington State University}
+\setDepartment{Department of Chemistry}
+
+% Your committee information
+\setAdvisor{Advisor}
+\addCommitteeMembers{
+	{Committee Member 1}
+	{Committee Member 2}
+	{Committee Member 3}
+	}
+
+\usepackage{hyperref}
+\hypersetup{
+	pdffitwindow=false,
+	pdftitle={The title of this dissertation},
+	pdfauthor={Butch T. Coug},
+	pdfsubject={Dissertation},
+	colorlinks=true, % false: boxed links; true: colored links
+	linkcolor=black,
+	citecolor=black,
+	urlcolor=black,
+	breaklinks=true,
+	hypertexnames=false,
+	bookmarksnumbered=true
+	}
+
+\urlstyle{same} % prevent a different, usefull, font from appearing in url formats.
+
+\doublespacing
+\begin{document}
+
+\makeTitlePages
+
+\makeSignaturePage
+
+\begin{ackPage}
+\lipsum[3]
+\end{ackPage}
+
+\begin{abstractPage}
+\lipsum[4-5]
+\end{abstractPage}
+
+\tableofcontents\clearpage
+\listoftables\clearpage
+\listoffigures\clearpage
+\listof{example}{List of examples}\clearpage
+
+\pagenumbering{arabic}
+
+\chapter[Optional Chapter TOC Entry]{Chapter Heading}
+I will appear in the table of contents.
+
+\lipsum[1]
+
+\section{test section}
+\section{Effective Sound Speed in Monostatic Fourier Back-Projection}
+
+\begin{example}
+	\includegraphics[width=0.6\textwidth]{example-image-a}
+	\caption{example Image A with a really long caption because why is the spacing different.}
+\end{example}
+
+\begin{figure}
+	\includegraphics[width=0.6\textwidth]{example-image-a}
+	\caption{figure Image A}
+\end{figure}
+
+\begin{example}
+	\includegraphics[width=0.6\textwidth]{example-image-b}
+	\caption{example Image B}
+\end{example}
+
+% \begin{example}[h]
+% 	\includegraphics[width=0.6\textwidth]{example-image-golden}
+% 	\caption{Golden Ratio}
+% \end{example}
+
+\section{Section Heading}
+I will appear in the table of contents.
+
+\input{./../Chapter1/Chapter1}
+% \lipsum[1]
+
+% \begin{example}[h]
+% 	\includegraphics[width=0.6\textwidth]{example-image-b}
+% 	\caption{example image B}
+% \end{example}
+
+% \subsection{Subsection Heading}
+% I will appear in the table of contents.
+
+% \lipsum[1]
+
+% \begin{example}[h]
+% 	\includegraphics[width=0.6\textwidth]{example-image-c}
+% 	\caption{example image C}
+% \end{example}
+
+% \subsubsection{Subsubsection Heading}
+% \lipsum[1]
+
+% \textbf{I will not appear in the table of contents. Things start to look the same here, since we had to start so small. I would recommend not using subsubsection.}
+
+
+% \lipsum[1]
+
+% \begin{example}[h]
+% 	\includegraphics[width=3cm]{example-grid-100x100pt}
+% 	\caption{example image Grid}
+% \end{example}
+
+
+% \lipsum[1]
+
+% \begin{example}
+% 	\includegraphics[width=0.6\textwidth]{example-image-a}
+% 	\caption{example Image A}
+% \end{example}
+
+% \lipsum[1]
+
+
+\paragraph{Paragraph Heading}
+I will not appear in the table of contents.
+\lipsum[1]
+
+\subparagraph{Subparagraph Heading}
+I will not appear in the table of contents.
+\lipsum[1]
+
+\begin{appendices}\appendicestocpagenum
+
+\chapter{The first Appendix Chapter}
+\lipsum[1-5]
+
+\section{App Section Heading}
+
+\subsection{App Section Heading}
+
+
+% \begin{example}
+% 	\includegraphics[width=0.6\textwidth]{example-image-a}
+% 	\caption{example image A in appendix}
+% \end{example}
+
+\end{appendices}
+\clearpage
+
+\renewcommand{\bibname}{\large\bfseries\MakeUppercase{Bibliography}}
+\let\WriteBookmarks\relax
+\pdfbookmark[0]{Bibliography}{thebibliography}
+\bibliography{./../BibFile/references} %Enter the relative directory for your BibFile.bib here
+\bibliographystyle{unsrtnat}
+
+\clearpage
+
+\layout
+
+\end{document}
