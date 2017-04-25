@@ -29,13 +29,27 @@
 % Redefine the chapter command to be ALL CAPS
 \renewcommand\chapter{\clearpage\thispagestyle{plain}\secdef\@chapter\@schapter}
 
+% Add a command that goes before starttoc to add page numbers.
+% if it goes on for more than a page and you still want it remove this and use a manual solution for now:
+% https://tex.stackexchange.com/questions/8296/add-page-above-page-numbers-in-table-of-contents
+
+
 % Patch the l@chapter command to remove the bold font series.
 \patchcmd%
-	{\l@chapter}%search
-	{\bfseries}%command
+	{\l@chapter}%command
+	{\bfseries}%search
 	{}%replace
 	{}%success
 	{}%failure
+
+% Patch the tableofcontents command to add a 'page' heading.
+\patchcmd%
+	{\tableofcontents}%command
+	{\@starttoc{toc}}%search
+	{\hfill page \par\@starttoc{toc}}%replace
+	{}%success
+	{}%failure
+
 
 \renewcommand{\float@listhead}[1]{\@schapter{#1}}
 
@@ -61,6 +75,7 @@
                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.5ex \@plus .2ex}%
                                      {\normalfont\large\bfseries}}
+
 \def\@chapter[#1]#2{% TODO: redfine latex3 style
 	\refstepcounter{chapter}%
 	\addcontentsline{toc}{chapter}{#1}%
@@ -237,6 +252,7 @@
 	\vspace{\baselineskip}\par
 	}
 	{%end code
+	\phantomsection
 	\def\toclevel@section{0}
 	\addcontentsline{toc}{chapter}{ACKNOWLEDGMENTS}
 	}
