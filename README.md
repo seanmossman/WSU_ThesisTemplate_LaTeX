@@ -4,3 +4,10 @@ Dissertation/thesis templates for Washington State University graduate students 
 
 # Contributions
 Anybody wishing to make changes to this template, such as bug fixes or style changes, should do so in the development branch. The master branch should be the graduate school approved version at all times.
+
+# To do for the LaTeX 3 development branch
+
+1. Convert to the new latex 3 syntax.
+1. Create packages for disserations vs thesis, customize these per degree offered.
+1. add 'page' to the other table of contents options.
+1. refactor file structure to use a folder framework.
