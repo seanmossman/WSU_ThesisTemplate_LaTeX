@@ -7,12 +7,13 @@ Anybody wishing to make changes to this template, such as bug fixes or style cha
 
 # To do for the LaTeX 3 development branch
 
+1. Add the dedication page.
 1. Convert to the new latex 3 syntax.
-1. Create packages for disserations vs thesis, customize these per degree offered.
+1. Create packages for dissertations vs thesis, customize these per degree offered.
 1. add 'page' to the other table of contents options.
-1. refactor file structure to use a folder framework.
+1. re-factor file structure to use a folder framework.
 1. Add draft option to the .cls file. It will toggle:
 	1. Document frames
 	1. Layout page
 	1. todo notes
-	1. WSU formatting reqirement notes
+	1. WSU formatting requirement notes

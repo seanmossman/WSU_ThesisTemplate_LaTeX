@@ -76,6 +76,8 @@
                                      {1.5ex \@plus .2ex}%
                                      {\normalfont\large\bfseries}}
 
+%% TODO: Patch the toc entry command to always use a dotted line.
+%% 			Or use textorpdfstring to resolve hyperref warnings.
 \def\@chapter[#1]#2{% TODO: redfine latex3 style
 	\refstepcounter{chapter}%
 	\addcontentsline{toc}{chapter}{#1\dottedline}%
@@ -290,16 +292,32 @@
 		\@date \par
 		\vspace{\fill}
 		Chair:~\g_myAdvisor_tl\par
+		\phantomsection
+		\def\toclevel@section{0}
+		\addcontentsline{toc}{chapter}{ABSTRACT\dottedline}
 	\group_end:
-	\vspace{\fill}
+	\RaggedRight
 	}
 	{%end code
-	\vspace{\fill}\par
-	\phantomsection
-	\def\toclevel@section{0}
-	\addcontentsline{toc}{chapter}{ABSTRACT\dottedline}
-	%Q\clearpage
+	%\vspace{\fill}\par
+	\clearpage
 	}
+
+% Create the new dedication environment & page
+\NewDocumentEnvironment{dedicationPage} { O{} }
+	{%start code
+	\doublespacing 
+	\pagestyle{plain}
+	\vspace*{50pt}
+	{\centering\large\bfseries{Dedication}\par}
+	\vspace{20pt}
+	%\@schapter{Dedication}
+	%\vspace{\baselineskip}\par
+	}
+	{%end code
+	\clearpage
+	}
+
 
 \ExplSyntaxOff
 
