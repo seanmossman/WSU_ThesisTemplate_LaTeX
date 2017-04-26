@@ -1,10 +1,11 @@
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{wsu-dissertation-thesis}[2017/04/12]
+\ProvidesClass{wsu}[2017/04/12]
 %\ProvidesExplPackage
 
 
 \LoadClass{report} % Base of report.cls, which is based off latex.cls
+
 
 %					LOAD REQUIRED PACKAGES
 \RequirePackage{microtype} % One of the main points of using latex
@@ -24,7 +25,10 @@
 \RequirePackage[letterpaper]{geometry}
 
 % Set the margins with the geometry package
-\newgeometry{showframe,left=1.75in,right=1.75in,top=1.5in,bottom=1.5in,footskip=0.75in,headsep=0.75in}
+\newgeometry{left=1.75in,right=1.75in,top=1.5in,bottom=1.5in,footskip=0.75in,headsep=0.75in}
+
+
+
 
 % Redefine the chapter command to be ALL CAPS
 \renewcommand\chapter{\clearpage\thispagestyle{plain}\secdef\@chapter\@schapter}
@@ -56,14 +60,11 @@
 % Renew the appendix page command
 \renewcommand{\appendixpage}{%% TODO: redfine latex3 style
 	\clearpage
-	\thispagestyle{plain}%
-	\markboth{}{}%
-	\let\ps@plain\ps@empty{%
 	\chapter*{\appendixpagename}
-	\vspace{\fill}
+	\thispagestyle{empty} % must go after a page entry to work
 	\clearpage
 	}%
-	}
+	
 
 % Format some section titles to go with our wacky font sizes and other starting choices.
 % https://tex.stackexchange.com/questions/36609/formatting-section-titles
@@ -105,13 +106,25 @@
 
 % Turn on latex3 syntax:
 \ExplSyntaxOn
-
 % N = single token
 % n = set of tokens in braces {}
 % A token is either 
 % 	(a) a single character with an attached category code, or 
 % 	(b) a control sequence.
 
+%% Declare variables for class options.
+%% Draft option boolean
+\bool_new:N \g__draft_mode_bool
+%% Draft option for draft mode.
+%% Using a custom name for now, because the draft option gets
+%% passed to other packages, eg. graphicx and microtype.
+\keys_define:nn { wsu } {
+	wsudraft .code:n = \bool_gset_true:N \g__draft_mode_bool,
+	wsudraft .default:n = \bool_gset_false:N \g__draft_mode_bool,
+}
+
+
+%% TODO: move this to the packages for each degree.
 % Define class options
 \keys_define:nn { wsu }
 	{
@@ -120,14 +133,16 @@
 		{\tl_set:Nn \g_wsu_thesis_or_diss_tl { \l_keys_choice_tl } },
 	}
 
-%\keys_set:nn { wsu } {
-%	DegreeTitle = {Default Degree Title}
-%}
-
-
 % Process options. This command is important, and defines the sections of 
-% a class file. See ADD LINK
+% a class file. See the "interface" documentation and l3keys2e.
 \ProcessKeysOptions { wsu }
+
+%% Implement wsudraft options:
+\bool_if:NT \g__draft_mode_bool
+	{\geometry{showframe}}
+
+
+
 
 % Set the degree title:
 \NewDocumentCommand \setDegree { m } {
@@ -151,7 +166,7 @@
 % The \makeTitlePages*{} will allow manual breaks using \par
 % and let the user set where the breaks occur.
 \NewDocumentCommand \makeTitlePages {s} {% s = optional star command
-	\clearpage 
+	%\clearpage 
 	\pagenumbering{roman} \setcounter{page}{0}
 	\group_begin:
 	\noindent
