@@ -65,7 +65,6 @@
 	\clearpage
 	}%
 	
-
 % Format some section titles to go with our wacky font sizes and other starting choices.
 % https://tex.stackexchange.com/questions/36609/formatting-section-titles
 \renewcommand\section{\@startsection {section}{1}{\z@}%
@@ -79,7 +78,7 @@
 
 \def\@chapter[#1]#2{% TODO: redfine latex3 style
 	\refstepcounter{chapter}%
-	\addcontentsline{toc}{chapter}{#1}%
+	\addcontentsline{toc}{chapter}{#1\dottedline}%
 	\chaptermark{#1}%
 	\vspace*{50pt}
 	{\centering\large\bfseries\MakeUppercase{Chapter~\thechapter.} \par \MakeUppercase{#2}\par}
@@ -141,8 +140,11 @@
 \bool_if:NT \g__draft_mode_bool
 	{\geometry{showframe}}
 
-
-
+%% Implement a dot-fill command per WSU requirements.
+%% for table of content entries.
+\NewDocumentCommand \dottedline {} {
+	\leaders\hbox{$\m@th \mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+}
 
 % Set the degree title:
 \NewDocumentCommand \setDegree { m } {
@@ -263,13 +265,12 @@
 	\@schapter{Acknowledgment}
 	%\vspace*{50pt}
 	%{\noindent \hfill \large \bfseries ACKNOWLEDGMENT \hspace*{\fill}}
-	\setlength\RaggedRightParindent{3em} \RaggedRight 
+	%\setlength\RaggedRightParindent{3em} \RaggedRight 
 	\vspace{\baselineskip}\par
 	}
 	{%end code
 	\phantomsection
-	\def\toclevel@section{0}
-	\addcontentsline{toc}{chapter}{ACKNOWLEDGMENTS}
+	\def\toclevel@section{0}\addcontentsline{toc}{chapter}{ACKNOWLEDGMENTS\dottedline}
 	}
 
 
@@ -296,7 +297,7 @@
 	\vspace{\fill}\par
 	\phantomsection
 	\def\toclevel@section{0}
-	\addcontentsline{toc}{chapter}{ABSTRACT}
+	\addcontentsline{toc}{chapter}{ABSTRACT\dottedline}
 	%Q\clearpage
 	}
 
